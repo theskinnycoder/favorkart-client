@@ -1,7 +1,10 @@
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
+  TwitterAuthProvider,
   updateProfile,
 } from 'firebase/auth'
 import { useContext } from 'react'
@@ -52,10 +55,37 @@ export default function useAuth() {
     }
   }
 
+  async function loginWithSocials(social) {
+    try {
+      let provider
+      switch (social) {
+        case 'TWITTER':
+          provider = new TwitterAuthProvider()
+          break
+        case 'GOOGLE':
+          provider = new GoogleAuthProvider()
+        default:
+          break
+      }
+      const { user } = await signInWithPopup(auth, provider)
+      await createToken(user)
+      return {
+        user,
+        error: null,
+      }
+    } catch (error) {
+      console.log(error.message)
+      return {
+        user: null,
+        error: error.message,
+      }
+    }
+  }
+
   async function logout() {
     await signOut(auth)
     destroyToken()
   }
 
-  return { user, register, login, logout }
+  return { user, register, login, loginWithSocials, logout }
 }

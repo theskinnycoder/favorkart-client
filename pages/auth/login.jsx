@@ -1,10 +1,12 @@
 import {
   Button,
+  Divider,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Heading,
+  IconButton,
   Input,
   InputGroup,
   Link,
@@ -15,6 +17,8 @@ import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import useAuth from '~/hooks/use-auth'
+import { FcGoogle } from 'react-icons/fc'
+import { FiTwitter } from 'react-icons/fi'
 
 export default function LoginPage() {
   const {
@@ -25,7 +29,7 @@ export default function LoginPage() {
   } = useForm()
   const { push } = useRouter()
 
-  const { login } = useAuth()
+  const { login, loginWithSocials } = useAuth()
   const toast = useToast()
 
   async function submitHandler({ email, password }) {
@@ -156,6 +160,45 @@ export default function LoginPage() {
         >
           Login
         </Button>
+
+        <Divider />
+
+        <Flex
+          flexDir='column'
+          justify='center'
+          align='center'
+          experimental_spaceY={4}
+        >
+          <Text>Or continue with :</Text>
+          <Flex
+            justify='center'
+            align='center'
+            w='full'
+            h={10}
+            experimental_spaceX={2}
+          >
+            <IconButton
+              colorScheme='gray'
+              size='lg'
+              variant='ghost'
+              onClick={() => {
+                loginWithSocials('GOOGLE')
+              }}
+              icon={<FcGoogle />}
+            />
+            <Divider orientation='vertical' />
+            <IconButton
+              colorScheme='gray'
+              size='lg'
+              color='twitter.500'
+              variant='ghost'
+              onClick={() => {
+                loginWithSocials('TWITTER')
+              }}
+              icon={<FiTwitter />}
+            />
+          </Flex>
+        </Flex>
       </Flex>
     </Flex>
   )

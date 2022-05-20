@@ -9,7 +9,8 @@ const brandColor = defaultTheme.colors.green
 const semanticTokens = {
   colors: {
     primary: {
-      default: 'brand.500',
+      default: 'brand.300',
+      _light: 'brand.500',
     },
   },
 }
@@ -35,7 +36,7 @@ const fonts = {
 }
 
 const config = {
-  initialColorMode: 'light',
+  initialColorMode: 'dark',
   useSystemColorMode: false,
 }
 
@@ -63,9 +64,29 @@ const components = {
       },
     },
   },
+  Switch: {
+    defaultProps: {
+      focusBorderColor: 'brand.300',
+    },
+  },
+  NumberInput: {
+    defaultProps: {
+      focusBorderColor: 'brand.300',
+    },
+  },
+  Textarea: {
+    defaultProps: {
+      focusBorderColor: 'brand.300',
+    },
+  },
   Input: {
     defaultProps: {
-      focusBorderColor: 'brand.500',
+      focusBorderColor: 'brand.300',
+    },
+  },
+  PinInput: {
+    defaultProps: {
+      focusBorderColor: 'brand.300',
     },
   },
 }
